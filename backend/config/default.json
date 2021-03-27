@@ -1,0 +1,5 @@
+{
+    "MONGO_URI" : "mongodb+srv://wissem:21101988@cluster0.5xjip.mongodb.net/myFirstDatabase?retryWrites=true&w=majority",
+   "TOKEN_SECRET" : "WESSOUPOPO"
+   
+}
