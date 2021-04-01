@@ -9,7 +9,7 @@ import FeaturesBlocks from '../partials/FeaturesBlocks';
 import Testimonials from '../partials/Testimonials';
 import Newsletter from '../partials/Newsletter';
 import Footer from '../partials/Footer';
-
+import {getUserById} from "../JS/Action/actionUser";
 
 
 
@@ -17,9 +17,9 @@ function Home() {
  
 
 
- 
+//  const dispatch = useDispatch()
 
-// useEffect((id) => {
+// useEffect(() => {
   
 //   dispatch(getUserById())
   

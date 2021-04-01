@@ -1,13 +1,13 @@
 const express = require("express");
-const {register , login}= require("../controllers/user.controller")
-const { registerRules, validator } = require("../middelware/validator");
+const {register,login}= require("../controllers/user.controller")
+const { loginRules,registerRules, validator } = require("../middelware/validator");
 const isAuth = require("../middelware/passport-setup");
 const User = require("../models/User");
 
 const router = express.Router();
 
 router.post("/register",registerRules() ,validator,register);
-router.post("/login", login);
+router.post("/login",login);
 
 router.get("/current",isAuth() , (req,res)=>{
 
@@ -16,6 +16,11 @@ res.json(req.user);
 })
 
 
+
+// router.put("/current/:_id",isAuth(),updateProfile,(req,res)=>{
+
+//   res.json(req.user)
+// })
 
 //crud
 //@Api http:localhost:7000/api/users
@@ -37,6 +42,8 @@ router.get("/", (req, res) => {
       .then((user) => res.send(user))
       .catch((err) => res.send(err));
   });
+
+
   
   //@Api http:localhost:7000/api/users/id
   //@desc Delete user by id
@@ -59,6 +66,7 @@ router.get("/", (req, res) => {
       .catch((err) => res.send(err));
   });
   
+////
 
 
 

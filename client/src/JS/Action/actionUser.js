@@ -10,6 +10,8 @@ import {GET_USER, GET_USER_BY_ID,
   GET_PROFILE_SUCCESS,
   GET_PROFILE_FAIL,
   LOGOUT_SUCCESS,
+  UPDATE_PROFILE,
+  
   
 
 
@@ -52,7 +54,7 @@ dispatch({type :USER_REGISTER_SUCCESS,payload:userAdd.data});
 
 
 }catch(error){
-  dispatch({type:USER_REGISTER_FAIL,payload:error.response.data})
+  dispatch({type:USER_REGISTER_FAIL,payload: error.response.data})
 
 
 }
@@ -108,13 +110,12 @@ try {
   const token = localStorage.getItem("token");
 
 const config ={
-//change header to  headers:
+
   headers: {
-    // change Autorization to Authorization
     Authorization :token,
   }
 }
-  //change get(user/current) to get("api/user/current")
+ 
 
 const user = await axios.get("api/user/current", config)
 
@@ -135,13 +136,7 @@ axios.get(`/api/user${id}`)
 .catch((err)=>console.log(err))
 
 }
-// export const addUser = (newUser) => (dispatch) => {
-//     axios
-//       .post("/api/user", newUser)
-//       .then(() => dispatch(getUsers()))
-//       .catch((err) => console.log(err));
-//   };
-  
+
   export const deleteUser = (id) => (dispatch) => {
     axios
       .delete(`/api/user/${id}`)
@@ -149,30 +144,37 @@ axios.get(`/api/user${id}`)
       .catch((err) => console.log(err));
   };
   
-  export const editUserById = (id, editUser) => (dispatch) => {
-    axios
-      .put(`/api/user/${id}`, editUser)
-      .then(() => dispatch(getUsers()))
-      .catch((err) => console.log(err));
-  };
-  
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+ 
 //user logout
 export const logout = () => {
   return {
     type: LOGOUT_SUCCESS,
   };
 };
+
+
+
+
+
+/// essai update profile
+export const editUserById = (id, updatedProfile) => async (dispatch) => {
+      
+  const config = {
+            headers: {
+                  Authorization: localStorage.getItem("token"),
+            },
+};
+
+try {
+      const { data } = await axios.put(`/api/user/${id}`,updatedProfile,config);
+      dispatch({ type: UPDATE_PROFILE, payload: updatedProfile });
+      
+      
+} catch (error) {
+      console.log(error);
+      
+}
+
+};
+  
+  

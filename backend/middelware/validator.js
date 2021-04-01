@@ -9,12 +9,31 @@ exports.registerRules = () => [
     check("password", "this is not a valid password").isLength({ min: 4 })
 ]
 
+exports.loginRules = () => [
+    check('email', 'email is required').notEmpty(),
+    check('email', 'this email is not valid').isEmail(),
+    check('passWord', 'password required').notEmpty()
+];
+
 exports.validator = (req, res, next) => {
     const errors = validationResult(req);
 
     errors.isEmpty() ? next() : res.status(402).json({ errors: errors.array() });
 };
 
+
+
+// exports.validator = (req, res, next) => {
+//     const errors = validationResult(req);
+//     if (!errors.isEmpty()) {
+//       return res.status(400).send({
+//         errors: errors.array().map((el) => ({
+//           msg: el.msg,
+//         })),
+//       });
+//     }
+//     next();
+//   };
 // exports.PostRules =()=>[
 
 //     check("country", "this field is required").notEmpty(),

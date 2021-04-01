@@ -11,6 +11,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@szhsin/react-menu": "^1.9.0",
     "concurrently": "^6.0.0"
   }
 }

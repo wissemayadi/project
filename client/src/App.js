@@ -85,7 +85,7 @@ const dispatch = useDispatch()
         </Route>
       
           <PrivateRoute  path="/profil" component={Profil}/>
-          
+        
         
         <Route  exact path="/login" render={()=><Login/>}>
      

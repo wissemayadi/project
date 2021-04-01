@@ -3,11 +3,12 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Redirect } from 'react-router';
 import { Link } from 'react-router-dom';
 import { userLogin } from '../JS/Action/actionUser';
+import Menu from './Menu';
 import './Login.css'
 function Login() {
       const [email, setEmail] = useState();
       const [password, setPassWord] = useState();
-
+      const [visible, setVisible] = useState(false);
       //get errors with useSelector
       const errors = useSelector(state => state.userReducer.errors)
 
@@ -29,7 +30,9 @@ function Login() {
             setEmail('');
             setPassWord('');
       }
-   
+      const Visiblity = () => {
+            setVisible(visible? false : true);
+          };
 
       if (isAuth) return <Redirect to='/profil' />
 
@@ -37,11 +40,11 @@ function Login() {
             <h1>Please wait</h1>
       ):(
             <div>
-
-
-
+   
+    
+    
                   <div className="container">
-                     
+                  
 
                         <div className="left">
                               <div className="header">
@@ -56,7 +59,8 @@ function Login() {
                                           <p class="font-bold"></p>
                                           <p>   {errors ? <ul> {errors.msg}</ul> : null}</p>
                                     </div>
-                                    <input type="password" className="form-field animation a4" placeholder="Password" onChange={(e) => setPassWord(e.target.value)} />
+                                    <input type={visible ? "text" : "password"}  className="form-field animation a4" placeholder="Password" onChange={(e) => setPassWord(e.target.value)} />
+                                    <button onClick={Visiblity} className="visible">{visible ? "hide" : "show"}</button>{" "}
                                     <div class="bg-orange-100 border-l-4 border-orange-500 text-orange-700 p-4" role="alert">
                                           <p class="font-bold"></p>
                                           <p>   {errors ?  <ul > {errors.msg}</ul> : null}</p>
@@ -73,3 +77,6 @@ function Login() {
 }
 
 export default Login
+
+
+

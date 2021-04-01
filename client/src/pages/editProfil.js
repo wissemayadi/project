@@ -11,6 +11,7 @@ import { editUserById} from "../JS/Action/actionUser";
 const EditProfil = ()=> {
 
  
+ 
 const users =useSelector((state)=>state.userReducer.users);
 const isAuth=useSelector((state)=>state.userReducer.isAuth);
   const [editUser, setEditUser] = useState({});
@@ -25,18 +26,14 @@ const isAuth=useSelector((state)=>state.userReducer.isAuth);
 
 
 
-  const handleChange = (e) => {
-    setEditUser({ ...editUser, [e.target.fullName]: e.target.value });
+  const handleChange = e => {
+    setEditUser({ ...editUser, [e.target.name]: e.target.value });
   };
 
 
 
-
-
-
-  return(
-
-
+  return (
+  
 <div style={{ display: "flex", justifyContent: "center" }}>
       <Card
         style={{
@@ -64,9 +61,10 @@ const isAuth=useSelector((state)=>state.userReducer.isAuth);
 
         <Card.Body>
           <Card.Text>
-            <Form>
+
+            <form>
               <Form.Group
-                controlId="formBasicEmail"
+                controlId="fullName"
                 style={{ textAlign: "left" }}
               >
                 <Form.Label>fullname:</Form.Label>
@@ -74,7 +72,7 @@ const isAuth=useSelector((state)=>state.userReducer.isAuth);
                   type="text"
                   name="fullName"
                   placeholder="Enter your fullname"
-                  value={editUser.fullName}
+                  Value={editUser.fullName}
                   onChange={handleChange}
                 />
               </Form.Group>
@@ -87,8 +85,9 @@ const isAuth=useSelector((state)=>state.userReducer.isAuth);
                 <Form.Control
                   type="email"
                   name="email"
+                  
                   placeholder="Enter your email"
-                  value={editUser.email}
+                  Value={editUser.email}
                   
                 />
               </Form.Group>
@@ -100,17 +99,47 @@ const isAuth=useSelector((state)=>state.userReducer.isAuth);
                 <Form.Label>Biography</Form.Label>
                 <Form.Control
                   type="text"
-                 name="bio"
+                  name="bio"
+                  
                   placeholder="Enter your phone"
-                  value={editUser.bio}
+                  Value={editUser.bio}
                   onChange={handleChange}
                 />
               </Form.Group>
-            </Form>
+
+              <Form.Group
+                controlId="formBasicEmail"
+                style={{ textAlign: "left" }}
+              >
+                <Form.Label>phone</Form.Label>
+                <Form.Control
+                  type="text"
+                  name="phone"
+                  
+                  placeholder="Enter your phone"
+                  Value={editUser.phone}
+                  onChange={handleChange}
+                />
+                </Form.Group>
+                  <Form.Group
+                controlId="formBasicEmail"
+                style={{ textAlign: "left" }}
+              >
+                  <Form.Label>facebook</Form.Label>
+                <Form.Control
+                  type="text"
+                  name="facebook"
+                  
+                  placeholder="Enter your facebook"
+                  Value={editUser.facebook}
+                  onChange={handleChange}
+                />
+              </Form.Group>
+            </form>
           </Card.Text>
         </Card.Body>
         <div className="buttons">
-          <Link to="/">
+            <Link to="/profil">  
             <Button
               variant="outline-primary edit-button"
               onClick={() => dispatch(editUserById(editUser._id, editUser))}
@@ -118,10 +147,10 @@ const isAuth=useSelector((state)=>state.userReducer.isAuth);
             >
               Save
             </Button>
-          </Link>
-          <Link to="/">
+            </Link>  
+       {/*    <Link to="/">
             <Button variant="outline-danger edit-button">Cancel</Button>
-          </Link>
+          </Link> */}
         </div>
       </Card>
 </div>

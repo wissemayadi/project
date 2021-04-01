@@ -11,6 +11,7 @@ import {
       GET_PROFILE_FAIL,
       USER_LOGIN_FAIL,
       LOGOUT_SUCCESS,
+      UPDATE_PROFILE,
     
 
 
@@ -22,9 +23,9 @@ import {
 const initialState = {
       users: [],
       userById: {},
-
+   
       loading: false,
-      errors: null,
+      errors: {},
       isAuth: false,
 };
 
@@ -83,7 +84,8 @@ const reducerUser = (state = initialState, { type, payload }) => {
                   return {
                         ...state,
                         loading: false,
-                        errors: payload
+                        errors: payload,
+                       
                   };
             case GET_PROFILE_FAIL:
             case USER_LOGIN_FAIL:
@@ -102,7 +104,12 @@ const reducerUser = (state = initialState, { type, payload }) => {
                         loading: false,
                         token: null
                   }
-
+            case UPDATE_PROFILE:
+                  return {
+                     ...state,
+                     user:payload   
+                  }      
+             
 
 
             default:

@@ -4,10 +4,9 @@ import { Link,Redirect } from 'react-router-dom';
 import {useSelector,useDispatch} from "react-redux";
 import Header from '../partials/Header';
 import Footer from '../partials/Footer';
-import { deleteUser, userRegister} from "../JS/Action/actionUser";
+import { deleteUser, getUsers, userRegister} from "../JS/Action/actionUser";
 import {postRegister} from "../JS/Action/actionPost";
 
-import {editUserById,getUserById} from "../JS/Action/actionUser";
 import NavProfil from './navProfil';
 import {getProfile} from "../JS/Action/actionUser";
 
@@ -17,34 +16,6 @@ import EditProfil from './editProfil';
 
 const Profil = () => {
 
-
-// update profil
-// const userById= useSelector((state)=>state.userById)
-// const [editUser, setEditUser] = useState({});
-
-// useEffect(()=>{
-//   dispatch(setEditUser(userById))
-// },[userById])
-
-// const handleChange = (e) => {
-//   setEditUser({ ...editUser, [e.target.pseudo]: e.target.value });
-// };
-
-
-
-//logout
-
-
-
-
-
-
-
-
-
-// const errors = useSelector((state)=>  state.postReducer.errors);
-// const isAuth = useSelector((state)=>state.postReducer.isAuth);
-// const loading = useSelector((state)=>state.postReducer.loading);
 
 
 
@@ -67,6 +38,7 @@ useEffect(() => {
   
   
 }, [isAuth])
+
 
 
 
@@ -164,6 +136,7 @@ const addPost=(e)=>{
             
             />
           </div>
+         
 
           <div class="flex flex-col space-y-4 md:space-y-0 md:flex-row md:space-x-4">
 
@@ -174,6 +147,7 @@ const addPost=(e)=>{
               
               />
             </div>
+            
 
             <div class="form-item w-full">
               <label class="text-xl ">Email</label>
@@ -183,7 +157,16 @@ const addPost=(e)=>{
               
               />
             </div>
+            <div class="form-item w-full">
+              <label class="text-xl ">Phone</label>
+              <input type="text"  class="w-full appearance-none text-black text-opacity-5 rounded shadow py-1 px-2 mr-2 focus:outline-none focus:shadow-outline focus:border-blue-200 text-opacity-5 "
+              
+              value={users.phone}
+              
+              />
+            </div>
           </div>
+          
 
           <div>
             <h3 class="text-2xl font-semibold ">More About Me</h3>
@@ -205,15 +188,15 @@ const addPost=(e)=>{
 
           <div class="form-item">
             <label class="text-xl ">Instagram</label>
-            <input type="text" value="https://instagram.com/" class="w-full appearance-none text-black text-opacity-50 rounded shadow py-1 px-2 mr-2 focus:outline-none focus:shadow-outline focus:border-blue-200 text-opacity-25 " disabled/>
+            <input type="text" value={users.istagram}class="w-full appearance-none text-black text-opacity-5 rounded shadow py-1 px-2 mr-2 focus:outline-none focus:shadow-outline focus:border-blue-200 text-opacity-25 " />
           </div>
           <div class="form-item">
             <label class="text-xl ">Facebook</label>
-            <input type="text" value="https://facebook.com/" class="w-full appearance-none text-black text-opacity-50 rounded shadow py-1 px-2 mr-2 focus:outline-none focus:shadow-outline focus:border-blue-200 text-opacity-25 " disabled/>
+            <input type="text" value={users.facebook} class="w-full appearance-none text-black text-opacity-5 rounded shadow py-1 px-2 mr-2 focus:outline-none focus:shadow-outline focus:border-blue-200 text-opacity-25 " />
           </div>
           <div class="form-item">
             <label class="text-xl ">Twitter</label>
-            <input type="text" value="https://twitter.com/" class="w-full appearance-none text-black text-opacity-50 rounded shadow py-1 px-2  mr-2 focus:outline-none focus:shadow-outline focus:border-blue-200  " disabled/>
+            <input type="text" value={users.twitter} class="w-full appearance-none text-black text-opacity-5 rounded shadow py-1 px-2  mr-2 focus:outline-none focus:shadow-outline focus:border-blue-200  " />
           </div>
          
           <div
@@ -225,7 +208,7 @@ const addPost=(e)=>{
         type="button"
         class="border border-indigo-500 bg-indigo-500 text-white rounded-md px-4 py-2 m-2 transition duration-500 ease select-none hover:bg-indigo-600 focus:outline-none focus:shadow-outline"
 
-        // onClick={() => dispatch(getUserById(users._id))}
+        // onClick={() => dispatch(getUsers(users._id))}
       > 
        Edit
       </button></Link>

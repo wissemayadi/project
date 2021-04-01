@@ -15,12 +15,14 @@ exports.register = async (req, res) => {
     
     try {
         const searcheResult = await User.findOne({ email });
-        if (searcheResult) return res.status(401).json({ msg: "user existieren" });
+        if (searcheResult) return res.status(400).json({ msg: "user exist" });
       const newUser = new User({
         pseudo,
         email,
         phoneNumber,
         password,
+      
+
       });
       const salt = await bcrypt.genSalt(10);
       const hash = await bcrypt.hash(password, salt);
@@ -28,7 +30,8 @@ exports.register = async (req, res) => {
       await newUser.save();
       res.status(201).json({ msg: "user added successfully" });
     } catch (error) {
-      res.status(501).json({ msg: "User add fail", errors:error });
+      console.log("error",error);
+      res.status(501).json({ msg: "User add fail"});
     }
   };
 
@@ -67,5 +70,3 @@ try {
 
 
 } 
-
-

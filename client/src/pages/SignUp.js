@@ -1,4 +1,4 @@
-import React,{useState} from 'react';
+import React,{useState,useEffect} from 'react';
 import {useDispatch,useSelector} from "react-redux";
 import {userRegister} from '../JS/Action/actionUser';
 import { Link, Redirect } from 'react-router-dom';
@@ -18,6 +18,7 @@ const errors = useSelector((state)=>  state.userReducer.errors);
 const isAuth = useSelector((state)=>state.userReducer.isAuth);
 const loading = useSelector((state)=>state.userReducer.loading);
 console.log(errors)
+// 
 // console.log(userReducer);
 
 const dispatch =useDispatch();
@@ -31,11 +32,18 @@ const addUser=(e)=>{
         
     })
   )
+  setPseudo("");
+setEmail("");
+setPassword("");
 }
-// setPseudo("");
-// setEmail("");
-// setPassword("");
-if(loading) return <Redirect to='/login'/>
+ const check=()=>{
+const errors=[];
+var x=document.getElementById("email");
+x.innerHTML=Array.isArray(errors);
+ }
+
+ 
+if(isAuth) return <Redirect to='/login'/>
   return (
 
 //     <Redirect to ="/profil"/> 
@@ -80,6 +88,7 @@ if(loading) return <Redirect to='/login'/>
                       
                       />
                     </div>
+                    
                   </div>
                   <div className="flex flex-wrap -mx-3 mb-4">
                     <div className="w-full px-3">
@@ -88,14 +97,14 @@ if(loading) return <Redirect to='/login'/>
                       onChange={(e)=>setEmail(e.target.value)}
                        
                       />
-                       { errors ? (
-                      <div className="email error"
                      
-                      
-                      > {email.errors}</div>):null}
                  
                     </div>
-                  
+                    
+                    <p>   {errors ?  <ul > value={check}</ul> : null}</p>
+
+                    
+                   
                   </div>
                   <div className="flex flex-wrap -mx-3 mb-4">
                     <div className="w-full px-3">
@@ -167,7 +176,7 @@ if(loading) return <Redirect to='/login'/>
         </section>
 
       </main>
-
+      <div><h4>{errors.msg}</h4></div>
     </div>
     
   );

@@ -1,44 +1,51 @@
-import React,{useEffect} from 'react'
+import React,{useEffect,useState} from 'react'
 import {useSelector,useDispatch} from "react-redux";
-import { getPost} from "../JS/Action/actionPost";
+import { getPost,getPostById} from "../JS/Action/actionPost";
+import {getUserById} from "../JS/Action/actionUser";
 import {deletePost} from "../JS/Action/actionPost";
 import {Link} from "react-router-dom";
 import NavProfil from "./navProfil";
+
 // import Footer from 
 const Post = () => {
   const  dispatch = useDispatch()
-  const post=useSelector((state)=>state.postReducer.post);
+  const post=useSelector((state)=>state.postReducer.PostById);
+ 
   const users= useSelector((state)=>state.userReducer.users);
   const loading = useSelector((state) => state.userReducer.loading);
 const isAuth=useSelector((state)=>state.userReducer.isAuth);
+const   user=useSelector((state)=>state.postReducer.post);
 
 
-  useEffect(() => {
+useEffect(() => {
 
-    dispatch(getPost())
+    dispatch(getPostById(user))
     
     
   }, [])
-console.log(post)
+// console.log(getPostById)
 
 
     return (
         <div style={{display:"flex",flexDirection:"column" ,alignItems:"center",justifyContent:"center"}}>
          <NavProfil/>
-    {/* {post.map((post,key)=>( */}
- <div>
+       
+   {/* {users._id ==post.user[0] ? post.map((post,key)=>(
+  <div>
   
-  
+   <p> {post.description}</p> 
+    <p> {post.country}</p> 
+    <p> {post.dateStart}</p> 
+    <p> {post.dateEnd}</p> 
+    
       </div>
-          {/* ))} */}
+          )):null}     */}
          <div>
            <Link to ="/">
            <button onClick={()=>dispatch(deletePost(post._id))}>delete</button></Link>
            </div>
-           <p> {post.description}</p> 
-    <p> {post.country}</p> 
-    <p> {post.dateStart}</p> 
-    <p> {post.dateEnd}</p> 
+          {/* <p>{users._id}</p>
+          <p>{users.country}</p> */}
 
            <table class="border-collapse w-full">
     <thead>
