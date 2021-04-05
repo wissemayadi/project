@@ -11,7 +11,11 @@ import {
     POST_REGISTER_FAIL,
     DELETE_POST,
     DELETE_POST_SUCCESS,
-    DELETE_POST_FAIL
+    DELETE_POST_FAIL,
+    UPDATE_POST_SUCCESS,
+    UPDATE_POST,
+    UPDATE_POST_FAIL,
+    GET_POST_BY_ID
 } from "../Constant/actionTypesPost";
 
 
@@ -89,23 +93,81 @@ export const postRegister=(newPost)=>async(dispatch)=>{
     }
     }
 //delete post by id 
-    export const deletePost = (id) => (dispatch) => {
-      axios
-        .delete(`/api/post/${id}`)
-        .then(() => dispatch(getPost()))
-        .catch((err) => console.log(err));
-    };
+export const deletePost=(id)=>async(dispatch)=>{
+  
+  dispatch({ type:DELETE_POST })
+  
+  
+  try {
+    const token = localStorage.getItem("token");
+  
+  const config ={
+  
+    headers: {
+      Authorization :token,
+    }
+  }
+   
+  
+  const post= await axios.delete(`/api/post/user/${id}`, config)
+  
+      dispatch({ type: DELETE_POST_SUCCESS, payload: id});
+    } catch (error) {
+      dispatch({ type: DELETE_POST_FAIL, payload: error.response.data });
+    }
+  };
+//
+
+
 
 
 
 //get post by userid
 export const getPostById=(id)=>(dispatch)=>{
 
-  axios.get(`/api/post/${id}`)
+  axios.get(`/api/post/user/${id}`)
   .then((res)=>dispatch({type:GET_POST_BY_USER_ID,payload:res.data}))
   .catch((err)=>console.log(err))
   
   } 
+//get post by id 
+export const getPostId=(id)=>(dispatch)=>{
+
+axios.get(`/api/post/${id}`)
+.then((res)=>dispatch({type:GET_POST_BY_ID,payload:res.data}))
+.catch((err)=>console.log(err))
+
+}
 
 
 
+export const editPost=(id,updatedPost)=>async(dispatch)=>{
+  
+  dispatch({ type:UPDATE_POST })
+  
+  
+  try {
+    const token = localStorage.getItem("token");
+  
+  const config ={
+  
+    headers: {
+      Authorization :token,
+    }
+  }
+   
+  
+  const post= await axios.put(`/api/post/user/${id}`,updatedPost,config)
+  
+      dispatch({ type: UPDATE_POST_SUCCESS, payload: updatedPost});
+    } catch (error) {
+      dispatch({ type: UPDATE_POST_FAIL, payload: error.response.data });
+    }
+  };
+  // export const editPost = (id, editPost) => (dispatch) => {
+  //   axios
+  //     .put(`/api/post/user/${id}`, editPost)
+  //     .then((res) => dispatch(editPost()))
+  //     .catch((err) => console.log(err));
+  // };
+    

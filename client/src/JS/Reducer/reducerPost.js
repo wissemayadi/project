@@ -1,6 +1,9 @@
 import {
   GET_POST, GET_POST_BY_USER_ID,
-  POST_REGISTER, POST_REGISTER_SUCCESS, POST_REGISTER_FAIL, GET_POST_SUCCESS, GET_POST_FAIL
+  POST_REGISTER, POST_REGISTER_SUCCESS, POST_REGISTER_FAIL, GET_POST_SUCCESS, GET_POST_FAIL,
+  UPDATE_POST_SUCCESS,
+  DELETE_POST,
+  GET_POST_BY_ID
 
 
 } from "../Constant/actionTypesPost";
@@ -8,9 +11,11 @@ import {
 const intialState = {
   post: [],
   postById: {},
-  postByUserId:[],
+  postByUserId:{},
   loading: false,
   errors: null,
+  
+
 
 
   
@@ -27,17 +32,22 @@ const reducerPost = (state = intialState, { type, payload }) => {
          post:payload,
 
       };
-      // state.post.filter((post)=>post.user!==payload.user )
+   
     case GET_POST_BY_USER_ID:
 
       
  return {
    ...state,
-   payload,
+   postByUserId: payload,
    loading:false,
  }
     
-     
+     case GET_POST_BY_ID:
+       return{
+         ...state,
+         postById: payload,
+         loading:false
+       }
       
 
     case POST_REGISTER:
@@ -62,8 +72,19 @@ const reducerPost = (state = intialState, { type, payload }) => {
     case GET_POST_SUCCESS:
       return {
         ...state,
-       payload
+        users:payload 
       };
+
+      case UPDATE_POST_SUCCESS:
+        return{
+          ...state,
+        
+      }
+      case DELETE_POST:
+        return{
+       ...state,
+       payload
+        }
     default: return state;
 
 

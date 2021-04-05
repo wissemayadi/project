@@ -2,38 +2,48 @@ import React, { useState, useEffect } from "react";
 import { Card, Button, Form } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { editUserById} from "../JS/Action/actionUser";
+import { editPost} from "../JS/Action/actionPost";
 
 
 // import "bootstrap/dist/css/bootstrap.min.css";
 
 
-const EditProfil = ()=> {
+const EditPost = ()=> {
 
  
- 
-const users =useSelector((state)=>state.userReducer.users);
+
+const postById =useSelector((state)=>state.postReducer.postById);
 const isAuth=useSelector((state)=>state.userReducer.isAuth);
-  const [editUser, setEditUser] = useState({});
-
+ const postByUserId=useSelector((state)=>state.postReducer.postByUserId);
  
+const id = useSelector((state)=>state.userReducer.users._id)
+
+
   const dispatch = useDispatch();
+  const [editPoster, setEditPoster] = useState({
+});
+
   
+  console.log(postById)
 
   useEffect(() => {
-    setEditUser(users);
-  }, [users]);
+    setEditPoster(postById);
+  }, [postById]);
+
+
+
+
 
 
 
   const handleChange = e => {
-    setEditUser({ ...editUser, [e.target.name]: e.target.value });
+    setEditPoster({ ...editPoster, [e.target.country]: e.target.value });
   };
 
 
 
   return (
-  
+
 <div style={{ display: "flex", justifyContent: "center" }}>
       <Card
         style={{
@@ -47,7 +57,9 @@ const isAuth=useSelector((state)=>state.userReducer.isAuth);
           border: "transparent",
           boxShadow: "0 10px 10px 0 rgba(0,0,0,0.2)",
         }}
+        
       >
+      
         <Card.Header
           style={{
             borderTopRightRadius: "8px",
@@ -56,7 +68,7 @@ const isAuth=useSelector((state)=>state.userReducer.isAuth);
             color: "white",
           }}
         >
-          Edit User
+          Edit Post
         </Card.Header>
 
         <Card.Body>
@@ -67,12 +79,13 @@ const isAuth=useSelector((state)=>state.userReducer.isAuth);
                 controlId="fullName"
                 style={{ textAlign: "left" }}
               >
-                <Form.Label>fullname:</Form.Label>
+           
+                <Form.Label>country:</Form.Label>
                 <Form.Control
                   type="text"
-                  name="fullName"
+                  name="country"
                   placeholder="Enter your fullname"
-                  Value={editUser.fullName}
+                  Value={editPoster.country}
                   onChange={handleChange}
                 />
               </Form.Group>
@@ -81,13 +94,13 @@ const isAuth=useSelector((state)=>state.userReducer.isAuth);
                 controlId="formBasicEmail"
                 style={{ textAlign: "left" }}
               >
-                <Form.Label>email :</Form.Label>
+                <Form.Label>date start</Form.Label>
                 <Form.Control
                   type="email"
-                  name="email"
+                  name="dateStart"
                   
-                  placeholder="Enter your email"
-                  Value={editUser.email}
+                  placeholder="dateStart"
+                  Value={editPoster.dateStart}
                   
                 />
               </Form.Group>
@@ -96,14 +109,14 @@ const isAuth=useSelector((state)=>state.userReducer.isAuth);
                 controlId="formBasicEmail"
                 style={{ textAlign: "left" }}
               >
-                <Form.Label>Biography</Form.Label>
+                <Form.Label>dateEnd</Form.Label>
                 <Form.Control
                   type="text"
-                  name="bio"
+                  name="dateEnd"
                   
                   placeholder="Enter your phone"
-                  Value={editUser.bio}
-                  onChange={handleChange}
+                  Value={editPoster.dateEnd}
+               
                 />
               </Form.Group>
 
@@ -111,13 +124,13 @@ const isAuth=useSelector((state)=>state.userReducer.isAuth);
                 controlId="formBasicEmail"
                 style={{ textAlign: "left" }}
               >
-                <Form.Label>phone</Form.Label>
+                <Form.Label>description</Form.Label>
                 <Form.Control
                   type="text"
-                  name="phone"
+                  name="description"
                   
-                  placeholder="Enter your phone"
-                  Value={editUser.phone}
+                  placeholder="Enter your description"
+                  Value={editPoster.description}
                   onChange={handleChange}
                 />
                 </Form.Group>
@@ -125,13 +138,13 @@ const isAuth=useSelector((state)=>state.userReducer.isAuth);
                 controlId="formBasicEmail"
                 style={{ textAlign: "left" }}
               >
-                  <Form.Label>facebook</Form.Label>
+                  <Form.Label>autre</Form.Label>
                 <Form.Control
                   type="text"
-                  name="facebook"
+                  name="autre"
                   
                   placeholder="Enter your facebook"
-                  // Value={editUser.facebook}
+                  // Value={editPost.facebook}
                   // onChange={handleChange}
                 />
               </Form.Group>
@@ -142,7 +155,7 @@ const isAuth=useSelector((state)=>state.userReducer.isAuth);
             <Link to="/profil">  
             <Button
               variant="outline-primary edit-button"
-              onClick={() => dispatch(editUserById(editUser._id, editUser))}
+              onClick={() => dispatch(editPost(editPoster._id, editPoster))}
              
             >
               Save
@@ -153,9 +166,13 @@ const isAuth=useSelector((state)=>state.userReducer.isAuth);
           </Link> */}
         </div>
       </Card>
+  
+      <div>
+
+      </div>
 </div>
   )
 }
 
-export default  EditProfil;
+export default  EditPost;
 

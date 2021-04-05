@@ -9,22 +9,21 @@ import FeaturesBlocks from '../partials/FeaturesBlocks';
 import Testimonials from '../partials/Testimonials';
 import Newsletter from '../partials/Newsletter';
 import Footer from '../partials/Footer';
-import {getUserById} from "../JS/Action/actionUser";
+import {getProfile} from "../JS/Action/actionUser";
 
 
 
 function Home() {
  
+  // const users=useSelector((state)=>state.userReducer.users)
+  // const isAuth=useSelector((state)=>state.userReducer.isAuth)
+  // const id=useSelector((state)=>state.userReducer.users._id)
+  // const dispatch = useDispatch()
+  //   useEffect(() => {
+  //     dispatch(getProfile(users))
+  //   }, [isAuth]);
 
 
-//  const dispatch = useDispatch()
-
-// useEffect(() => {
-  
-//   dispatch(getUserById())
-  
-  
-// }, [])
 
 
   return (

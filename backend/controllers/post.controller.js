@@ -21,8 +21,8 @@ res.status(200).json(post);
 
 exports.getPostsById=async(req,res)=>{
 try{
-let {_id}=req.params;
-const postById=await User.find({_id});
+let user=req.params._id;
+const postById=await Post.find({user:user}).populate("user","_id");
 // const user = await User.findById(req.user.id).select("-password");
 res.status(200).json(postById);
 

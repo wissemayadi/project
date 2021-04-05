@@ -1,16 +1,18 @@
 import React,{useState,useEffect} from 'react';
-import { stringify } from "querystring";
+// import { stringify } from "querystring";
 import { Link,Redirect } from 'react-router-dom';
 import {useSelector,useDispatch} from "react-redux";
 import Header from '../partials/Header';
 import Footer from '../partials/Footer';
 import { deleteUser, getUsers, userRegister} from "../JS/Action/actionUser";
-import {postRegister} from "../JS/Action/actionPost";
+import {getPostById, postRegister} from "../JS/Action/actionPost";
 
 import NavProfil from './navProfil';
 import {getProfile} from "../JS/Action/actionUser";
 
-import EditProfil from './editProfil';
+
+
+
 // import {logout} from "../JS/Action/actionUser";
 
 
@@ -25,24 +27,29 @@ const Profil = () => {
 
 const dispatch =useDispatch()
 //getprofile
-
+const id =useSelector((state)=>state.userReducer.users._id)
+const post=useSelector((state)=>state.postReducer.getPostById);
 const users = useSelector((state) => state.userReducer.users);
 const loading = useSelector((state) => state.userReducer.loading);
+const loadingP = useSelector((state) => state.postReducer.loading);
 const isAuth=useSelector((state)=>state.userReducer.isAuth);
+const posts=useSelector((state)=>state.postReducer.postByUserId.data);
 console.log(users)
 console.log(isAuth)
-
+console.log(users._id)
 useEffect(() => {
+!users ?  dispatch(getProfile()) :
+ dispatch(getPostById(id)) 
 
-  dispatch(getProfile())
+ 
   
-  
-}, [isAuth])
+}, [users._id,isAuth])
 
 
 
-
-
+// useEffect(()=>{
+//   dispatch(getPostById)
+// },[users._id])
 
 
 //post staff 
@@ -101,7 +108,8 @@ const addPost=(e)=>{
       </h1>
       <h4 class="text-sm font-semibold"></h4>
     </div>
-    
+ 
+
   </div>
   <div class="grid grid-cols-12 bg-white ">
 
@@ -208,7 +216,7 @@ const addPost=(e)=>{
         type="button"
         class="border border-indigo-500 bg-indigo-500 text-white rounded-md px-4 py-2 m-2 transition duration-500 ease select-none hover:bg-indigo-600 focus:outline-none focus:shadow-outline"
 
-        // onClick={() => dispatch(getUsers(users._id))}
+    
       > 
        Edit
       </button></Link>
@@ -216,7 +224,7 @@ const addPost=(e)=>{
       <button
         type="button"
         class="border border-indigo-500 bg-indigo-500 text-white rounded-md px-4 py-2 m-2 transition duration-500 ease select-none hover:bg-indigo-600 focus:outline-none focus:shadow-outline"
-         
+        // onClick={()=>dispatch(EditProfil(users._id))}
       >
         
        Save
@@ -309,14 +317,17 @@ const addPost=(e)=>{
               <button class="flex justify-center items-center w-full text-gray-900 px-4 py-3 rounded-md focus:outline-none">
                 <svg class="w-6 h-6 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg> Cancel
               </button>
+              {/* { loadingP ?  <Link to ="/post"/> : null } */}
+              
               <button class="bg-blue-500 flex justify-center items-center w-full text-white px-4 py-3 rounded-md focus:outline-none"
               
               onClick={addPost}
+
             
 
               >Create
               </button>
-            <Link to="/post"><button>post management</button></Link> 
+            <Link to="/post"><button onClick={dispatch(getPostById(id))}>post management</button></Link> 
           </div>
         </div>
       </div>

@@ -24,8 +24,9 @@ import PrivateRoute from "./pages/PrivateRoute";
 import Login from './pages/Login';
 import EditProfil from "./pages/editProfil";
 import Post from "./pages/Post";
-import {getUserById} from "./JS/Action/actionUser";
-
+import {getProfile} from "./JS/Action/actionUser";
+import {getPostById} from "./JS/Action/actionPost";
+import EditPost from "./pages/postUpdate";
 function App() {
 
 
@@ -48,11 +49,15 @@ function App() {
     focusHandling('outline');
 
   }, [location.pathname]); // triggered on route change
-
+const users=useSelector((state)=>state.userReducer.users)
+const isAuth=useSelector((state)=>state.userReducer.isAuth)
+const id=useSelector((state)=>state.userReducer.users._id)
 const dispatch = useDispatch()
   useEffect(() => {
-    dispatch(getUserById())
-  }, []);
+    dispatch(getProfile(id))
+  }, [isAuth]);
+
+  
   return (
 
     <>
@@ -77,9 +82,9 @@ const dispatch = useDispatch()
           <Post/>
         </Route>
        
-        {/* <Route path="/essai">
-          <Essai />
-        </Route> */}
+        <Route path="/postUpdate">
+          <EditPost />
+        </Route>
            <Route path="/editprofil"  >
            <EditProfil />
         </Route>

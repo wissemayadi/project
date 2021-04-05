@@ -23,7 +23,7 @@ import {
 const initialState = {
       users: [],
       userById: {},
-   
+      
       loading: false,
       errors: {},
       isAuth: false,
