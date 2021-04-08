@@ -52,10 +52,15 @@ function App() {
 const users=useSelector((state)=>state.userReducer.users)
 const isAuth=useSelector((state)=>state.userReducer.isAuth)
 const id=useSelector((state)=>state.userReducer.users._id)
+const postById=useSelector((state)=>state.postReducer.postById)
 const dispatch = useDispatch()
   useEffect(() => {
     dispatch(getProfile(id))
   }, [isAuth]);
+useEffect(() => {
+      dispatch(getPostById(getPostById))
+    }, [isAuth]);
+  
 
   
   return (
@@ -82,9 +87,9 @@ const dispatch = useDispatch()
           <Post/>
         </Route>
        
-        <Route path="/postUpdate">
-          <EditPost />
-        </Route>
+        <Route path="/postUpdate/" component={EditPost }/>
+          
+        {/* </Route> */}
            <Route path="/editprofil"  >
            <EditProfil />
         </Route>

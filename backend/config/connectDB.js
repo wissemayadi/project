@@ -9,6 +9,7 @@ const connectDB=()=>{
 {
 useNewUrlParser:true,
 useUnifiedTopology:true,
+useFindAndModify:true
 
 
 

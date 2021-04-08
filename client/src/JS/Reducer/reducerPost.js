@@ -1,3 +1,4 @@
+import { getPostById } from "../Action/actionPost";
 import {
   GET_POST, GET_POST_BY_USER_ID,
   POST_REGISTER, POST_REGISTER_SUCCESS, POST_REGISTER_FAIL, GET_POST_SUCCESS, GET_POST_FAIL,
@@ -14,6 +15,7 @@ const intialState = {
   postByUserId:{},
   loading: false,
   errors: null,
+ 
   
 
 
@@ -78,6 +80,8 @@ const reducerPost = (state = intialState, { type, payload }) => {
       case UPDATE_POST_SUCCESS:
         return{
           ...state,
+       postById:payload,
+       loading:false
         
       }
       case DELETE_POST:

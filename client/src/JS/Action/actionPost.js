@@ -1,4 +1,5 @@
 import axios from "axios";
+import EditPost from "../../pages/postUpdate";
 
 
 import {
@@ -141,7 +142,7 @@ axios.get(`/api/post/${id}`)
 
 
 
-export const editPost=(id,updatedPost)=>async(dispatch)=>{
+export const editPost=(id,editPoster)=>async(dispatch)=>{
   
   dispatch({ type:UPDATE_POST })
   
@@ -157,13 +158,23 @@ export const editPost=(id,updatedPost)=>async(dispatch)=>{
   }
    
   
-  const post= await axios.put(`/api/post/user/${id}`,updatedPost,config)
+  const data= await axios.put(`/api/post/post/${id}`,editPoster)
   
-      dispatch({ type: UPDATE_POST_SUCCESS, payload: updatedPost});
+      dispatch({ type: UPDATE_POST_SUCCESS, payload: editPoster});
     } catch (error) {
       dispatch({ type: UPDATE_POST_FAIL, payload: error.response.data });
     }
   };
+
+
+
+
+  // export const editPost = (id, editPoster) => (dispatch) => {
+  //   axios
+  //     .put(`/api/post/user/${id}`, editPoster)
+  //     .then(() => dispatch(getPostById()))
+  //     .catch((err) => console.log(err));
+  // };
   // export const editPost = (id, editPost) => (dispatch) => {
   //   axios
   //     .put(`/api/post/user/${id}`, editPost)

@@ -45,7 +45,7 @@ router.get("/:_id",(req, res) => {
 //
 
 //update post assigned to auth user!
-  router.put("/user/:_id",(req, res) => {
+  router.put("/post/:_id",(req, res) => {
     let { _id } = req.params;
     Post.findByIdAndUpdate({ _id }, { $set: { ...req.body } })
       .then(() => res.send("Post has been updated"))
@@ -107,7 +107,7 @@ router.delete("/user/:id", isAuth(), async (req, res) => {
 });
 
 //update post by user id 
-// router.put("/user/:id", isAuth(), async (req, res) => {
+// router.put("/:id", isAuth(), async (req, res) => {
 //   try {
 //     const id = req.params.id;
 //     const authUserId = req.user._id;
@@ -116,8 +116,8 @@ router.delete("/user/:id", isAuth(), async (req, res) => {
 //     if (authUserId.toString() !== userID.toString()) {
 //       return res.status(401).send({ msg: "Unauthorized" });
 //     }
-//     await post.findByIdAndUpdate();
-//     res.status(200).send({ msg: "post deleted" });
+//     await post.save();
+//     res.status(200).send({ msg: "post updated" });
 //   } catch (error) {
 //     res.status(501).send({ msg: "Server Error" });
 //   }
@@ -197,6 +197,5 @@ router.delete("/user/:id", isAuth(), async (req, res) => {
 //   })
 
 // });
-
-
+// 
 module.exports = router ; 

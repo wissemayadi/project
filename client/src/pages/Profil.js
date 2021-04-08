@@ -327,7 +327,8 @@ const addPost=(e)=>{
 
               >Create
               </button>
-            <Link to="/post"><button onClick={dispatch(getPostById(id))}>post management</button></Link> 
+            <Link to="/post"><button >post management</button></Link> 
+            {/* onClick={dispatch(getPostById(id))} */}
           </div>
         </div>
       </div>
