@@ -1,5 +1,5 @@
 import React,{useEffect} from 'react'
-import { getPost } from '../JS/Action/actionPost';
+import { getPostMap } from '../JS/Action/actionPost';
 import Header from "../partials/Header";
 import {Link} from "react-router-dom";
 import Footer from "../partials/Footer";
@@ -9,20 +9,20 @@ import {useDispatch,useSelector} from "react-redux";
 
 
 
+
 const Cards = () => {
  
-    const post=useSelector(state=>state.postReducer.post);
-
-
+    const posts = useSelector((state) => state.postReducer.posts);
+  const users=useSelector((state)=>state.userReducer.users);
+  
     const dispatch = useDispatch()
 
     useEffect(() => {
     
-      dispatch(getPost())
+    dispatch(getPostMap(posts))
       
       
     }, [])
-
 
 
 
@@ -32,31 +32,42 @@ const Cards = () => {
 
 <Header/>
 <div><br/>
-{/* flex-row items-center h-screen justify-center wrap" */}
-{/* flex flex-wrap  justify-between  m-8 */}
-{post.map((post,key)=>(
+
+{ posts.map((posts,index) =>(
+
+    
+    
+   
 <div class="flex-wrap  justify-between  m-8">
 
 <div class="mg-8">
     <div class="bg-white shadow-xl rounded-lg py-3">
         
         <div class="p-2">
-            <h3 class="text-center text-xl text-gray-900 font-medium leading-8">{post.country}</h3>
+            <li ></li>
+            <h3 class="text-center text-xl text-gray-900 font-medium leading-8"></h3>
             <div class="text-center text-gray-400 text-xs font-semibold">
-                <p>Web Developer</p>
+                <p>country destinantion</p>
+                
+            
+            
+               
             </div>
             <table class="text-xs my-3">
-                <tbody><tr>
+                <tbody key={index}><tr>
+                <td class="px-2 py-2 text-gray-500 font-semibold">email</td>
+                    <td class="px-2 py-2">{users.email}</td>
                     <td class="px-2 py-2 text-gray-500 font-semibold">description</td>
-                    <td class="px-2 py-2">{post.description}</td>
+                    <td class="px-2 py-2">{posts.description}</td>
+                    {/* {posts.user} */}
                 </tr>
                 <tr>
                     <td class="px-2 py-2 text-gray-500 font-semibold">date debut</td>
-                    <td class="px-2 py-2">{post.dateStart}</td>
+                    <td class="px-2 py-2">{posts.dateStart}</td>
                 </tr>
                 <tr>
                     <td class="px-2 py-2 text-gray-500 font-semibold">date fin</td>
-                    <td class="px-2 py-2">{post.dateEnd}</td>
+                    <td class="px-2 py-2">{posts.dateEnd}</td>
                 </tr>
             </tbody></table>
 
@@ -68,7 +79,7 @@ const Cards = () => {
     </div>
 </div>
 </div>
-))}
+ ))} 
 </div>
 <div class="mt-10">
 <Footer />

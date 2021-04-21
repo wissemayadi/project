@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useState,useDispatch} from 'react'
 import {useSelector} from "react-redux";
 import { useHistory } from "react-router-dom";
 
@@ -9,17 +9,20 @@ const NavProfil = () => {
     const logout=()=>{
       
       localStorage.removeItem("token");
-       history.push('/login')
+    
       
     }
- 
+
+
+
     return (
         
         <div>
 
 
  
-    <div class="px-4 py-5 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8">
+    <div class=" px-4 py-5 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8">
+      {/* <div class="fixed flex w-full bg-white border-b items-center  bg-yellow-600 justify-between flex-wrap p-5 m-auto top-0 animated"> */}
       <div class="relative flex grid items-center grid-cols-2 lg:grid-cols-3">
         <ul class="flex items-center hidden space-x-8 lg:flex">
           <li>
@@ -42,16 +45,7 @@ const NavProfil = () => {
              User profil
             </a>
           </li>
-          <li>
-            <a
-              href="/"
-              aria-label="Product pricing"
-              title="Product pricing"
-              class="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
-            >
-              Pricing
-            </a>
-          </li>
+         
         </ul>
         <a
           href="/"
@@ -78,7 +72,9 @@ const NavProfil = () => {
             Company
           </span>
         </a>
+        
         <ul class="flex items-center hidden ml-auto space-x-8 lg:flex">
+        {isAuth ? 
           <li>
             <a
               href="/"
@@ -86,23 +82,15 @@ const NavProfil = () => {
               title="Sign in"
               class="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
             onClick={logout}
+         
             >
             logout
             </a>
-          </li>
-          <li>
-            <a
-              href="/"
-              class="inline-flex items-center justify-center h-12 px-6 font-medium tracking-wide text-white transition duration-200 rounded shadow-md bg-deep-purple-accent-400 hover:bg-deep-purple-accent-700 focus:shadow-outline focus:outline-none"
-              aria-label="Sign up"
-              title="Sign up"
-               
-            >
-              Sign up
-            </a>
-          </li>
+          </li>:"....."
+}
+        
         </ul>
-        <div class="ml-auto lg:hidden">
+        <div className="ml-auto lg:hidden">
           <button
             aria-label="Open Menu"
             title="Open Menu"

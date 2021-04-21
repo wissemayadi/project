@@ -11,13 +11,14 @@ import {GET_USER, GET_USER_BY_ID,
   GET_PROFILE_FAIL,
   LOGOUT_SUCCESS,
   UPDATE_PROFILE,
-  
+  UPDATE_PROFILE_SUCCESS
   
 
 
 
 
 } from "../Constant/actionTypes"
+import { UPDATE_POST_FAIL } from "../Constant/actionTypesPost";
 
 
 export const getUsers=()=>async (dispatch)=>{
@@ -60,30 +61,10 @@ dispatch({type :USER_REGISTER_SUCCESS,payload:userAdd.data});
 }
 }
 
-//user login
-/* 
-export const userLogin=(loginCred)=> async (dispatch)=>{
-dispatch({type:USER_LOGIN});
-
-  try {
-const userCurrent = await axios.post("api/user/login",loginCred);
-    console.log(userCurrent)
-    localStorage.setItem("token", userCurrent.data.token);
-
-    dispatch({ type: USER_LOGIN_SUCCESS, payload: userCurrent.data });
-
-  
-} catch (error) {
-  console.log(error)
-  dispatch({type:USER_LOGIN_FAIL, payload:error.response})
-}
-
-}
- */
 
 export const userLogin = (userCred) => async  (dispatch) => {
 
-  dispatch({ type: USER_LOGIN });
+  // dispatch({ type: USER_LOGIN });
 
     try {
             const userRes = await axios.post('/api/user/login', userCred);
@@ -145,12 +126,7 @@ axios.get(`/api/user${id}`)
   };
   
  
-//user logout
-export const logout = () => {
-  return {
-    type: LOGOUT_SUCCESS,
-  };
-};
+
 
 
 
@@ -158,7 +134,7 @@ export const logout = () => {
 
 /// essai update profile
 export const editUserById = (id, updatedProfile) => async (dispatch) => {
-      
+      dispatch({type:UPDATE_PROFILE})
   const config = {
             headers: {
                   Authorization: localStorage.getItem("token"),
@@ -167,14 +143,20 @@ export const editUserById = (id, updatedProfile) => async (dispatch) => {
 
 try {
       const { data } = await axios.put(`/api/user/${id}`,updatedProfile,config);
-      dispatch({ type: UPDATE_PROFILE, payload: updatedProfile });
+      dispatch({ type: UPDATE_PROFILE_SUCCESS, payload: updatedProfile });
       
       
 } catch (error) {
       console.log(error);
-      
+      dispatch({type:UPDATE_POST_FAIL})
 }
 
 };
   
-  
+
+
+export const logout = () => (dispatch) => {
+  dispatch({
+    type: LOGOUT_SUCCESS,
+  });
+};

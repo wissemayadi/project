@@ -15,8 +15,17 @@ router.get('/posts',getPosts);
 
 router.get("/user/:_id",getPostsById);//get post by id
 //
-  router.get("/",isAuth(), (req, res) => {
+  router.get("/", (req, res) => {
+    
     Post.find()
+      .then((post) => res.send(post))
+      .catch((post) => res.send(post));
+  });
+
+
+  router.get("/map", (req, res) => {
+    
+    Post.find().populate("user","phone fullName email")
       .then((post) => res.send(post))
       .catch((post) => res.send(post));
   });
@@ -61,10 +70,10 @@ router.get("/:_id",(req, res) => {
 router.post(
 "/registerp",
 [isAuth(),
-  check("country","text is required").not().isEmpty(),
-  check("dateStart","date is required").not().isEmpty(),
-  check("dateEnd","date is required").not().isEmpty(),
-  check("description","date is required").not().isEmpty(),
+  check("country","(*)country is required").not().isEmpty(),
+  check("dateStart","(*)date start is required").not().isEmpty(),
+  check("dateEnd","(*)date End is required").not().isEmpty(),
+  check("description","(*)description is required").not().isEmpty(),
 
 ],
 async(req,res)=>{
@@ -82,7 +91,9 @@ async(req,res)=>{
       user: req.user.id
     });
     const post = await newPost.save();
-    res.json(post);
+  
+    res.status(201).json({ msg: "post added successfully" });
+    // res.json(post);
   } catch (err) {
     console.log(err.message);
     res.status(500).send("Server errors");
@@ -105,6 +116,14 @@ router.delete("/user/:id", isAuth(), async (req, res) => {
     res.status(501).send({ msg: "Server Error" });
   }
 });
+
+// router.get("/user/posts",isAuth(), (req, res) => {
+//   let user = req.params._id;
+//   //   let id = req.params._id;
+//   Post.find({ user: user}).populate("user","fullName email phone")
+//     .then((user) => res.send(user))
+//     .catch((err) => res.send(err));
+// });
 
 //update post by user id 
 // router.put("/:id", isAuth(), async (req, res) => {

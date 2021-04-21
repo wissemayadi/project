@@ -1,9 +1,12 @@
-import React from 'react';
+import React,{useDispatch,useEffect} from 'react';
+import {useSelector} from "react-redux"
 import Cards from "../pages/userCards";
+import {getPost} from "../JS/Action/actionPost";
 function FeaturesBlocks() {
-
+ 
   // we gonna display user cards ! 
   return (
+
     <section className="relative">
 
       {/* Section background (needs .relative class on parent and next sibling elements) */}

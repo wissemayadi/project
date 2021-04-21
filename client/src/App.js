@@ -11,8 +11,8 @@ import './css/style.scss';
 import AOS from 'aos';
 import { focusHandling } from 'cruip-js-toolkit';
 
-//test 
-import Essai from './pages/Essai';
+
+
 import Home from './pages/Home';
 
 import SignUp from './pages/SignUp';
@@ -55,10 +55,11 @@ const id=useSelector((state)=>state.userReducer.users._id)
 const postById=useSelector((state)=>state.postReducer.postById)
 const dispatch = useDispatch()
   useEffect(() => {
+    if(users)
     dispatch(getProfile(id))
   }, [isAuth]);
 useEffect(() => {
-      dispatch(getPostById(getPostById))
+      dispatch(getPostById(id))
     }, [isAuth]);
   
 
@@ -80,16 +81,19 @@ useEffect(() => {
         <Route path="/list">
           <List />
         </Route>
-        <Route path="/usercards"component={Cards}>
+        <Route path="/usercards" >
           <Cards/>
         </Route>
-        <Route path="/post"component={Post}>
-          <Post/>
-        </Route>
+        <Route path="/post" render={()=><Post/>}/>
        
-        <Route path="/postUpdate/" component={EditPost }/>
+         
+     
+       
+        <Route path="/postUpdate" >
+          <EditPost/>
+          </Route>
           
-        {/* </Route> */}
+       
            <Route path="/editprofil"  >
            <EditProfil />
         </Route>

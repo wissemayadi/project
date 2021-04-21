@@ -2,7 +2,7 @@ const User= require ("../models/User");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
-
+const {registerErrors}=require("../utils/errorsutils")
 
  require("dotenv").config({path :"./config/.env"})
 
@@ -11,16 +11,17 @@ const jwt = require("jsonwebtoken");
 
 
 exports.register = async (req, res) => {
-    const { pseudo, email, phoneNumber, password } = req.body;
+    const { pseudo, email, password } = req.body;
+    const searcheResult = await User.findOne({ email });
+    if (searcheResult) return res.status(400).json({ msg: "user exist" });
     
     try {
-        const searcheResult = await User.findOne({ email });
-        if (searcheResult) return res.status(400).json({ msg: "user exist" });
+     
       const newUser = new User({
         pseudo,
         email,
-        phoneNumber,
         password,
+        password
       
 
       });
@@ -30,7 +31,8 @@ exports.register = async (req, res) => {
       await newUser.save();
       res.status(201).json({ msg: "user added successfully" });
     } catch (error) {
-      console.log("error",error);
+    
+      console.log(error );
       res.status(501).json({ msg: "User add fail"});
     }
   };

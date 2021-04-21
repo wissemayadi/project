@@ -32,7 +32,7 @@ function HeroHome() {
 
           {/* Section header */}
           <div className="text-center pb-12 md:pb-16">
-            <h1 className="text-5xl md:text-6xl font-extrabold leading-tighter tracking-tighter mb-4" data-aos="zoom-y-out">Welcome to our website <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-500 to-teal-400">Wessou</span></h1>
+            <h1 className="text-5xl md:text-6xl font-extrabold leading-tighter tracking-tighter mb-4" data-aos="zoom-y-out">Welcome to our website <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-500 to-teal-400">Keep it simple </span></h1>
             <div className="max-w-3xl mx-auto">
               <p className="text-xl text-gray-600 mb-8" data-aos="zoom-y-out" data-aos-delay="150">make your own delivery experience</p>
               <div className="max-w-xs mx-auto sm:max-w-none sm:flex sm:justify-center" data-aos="zoom-y-out" data-aos-delay="300">
@@ -50,9 +50,9 @@ function HeroHome() {
           <div>
             <div className="relative flex justify-center mb-8" data-aos="zoom-y-out" data-aos-delay="450">
               <div className="flex flex-col justify-center">
-                <img className="mx-auto" src={require('../images/livro.jpeg')} width="768" height="432" alt="Hero" />
+                <img className="mx-auto" src={require('../images/autre.jpeg')} width="768" height="432" alt="Hero" />
                 <svg className="absolute inset-0 max-w-full mx-auto md:max-w-none h-auto" width="768" height="432" viewBox="0 0 768 432" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink">
-                  <defs>
+                  {/* <defs>
                     <linearGradient x1="50%" y1="0%" x2="50%" y2="100%" id="hero-ill-a">
                       <stop stopColor="#FFF" offset="0%" />
                       <stop stopColor="#EAEAEA" offset="77.402%" />
@@ -69,7 +69,7 @@ function HeroHome() {
                       <stop stopColor="#338CF5" offset="100%" />
                     </radialGradient>
                     <circle id="hero-ill-d" cx="384" cy="216" r="64" />
-                  </defs>
+                  </defs> */}
                   <g fill="none" fillRule="evenodd">
                     <circle fillOpacity=".04" fill="url(#hero-ill-a)" cx="384" cy="216" r="128" />
                     <circle fillOpacity=".16" fill="url(#hero-ill-b)" cx="384" cy="216" r="96" />

@@ -16,33 +16,12 @@ import {
     UPDATE_POST_SUCCESS,
     UPDATE_POST,
     UPDATE_POST_FAIL,
-    GET_POST_BY_ID
+    GET_POST_BY_ID,
+    GET_PUBLIC_POST
 } from "../Constant/actionTypesPost";
 
 
-// export const getPost=()=>async (dispatch)=>{
-//   const config = {
-//     headers: {
-//           Authorization: localStorage.getItem("token"),
-//     },
-// };
-//     try {
-        
-//       const res = await axios.get('/api/post/posts',config)
-//       console.log(res)
-    
-//       dispatch({type : GET_POST , payload : res.data})
-    
-    
-//     } catch (error) {
-    
-//       console.log('get error',error)
-      
-//     }
-//     axios.get("/api/post")
-// .then((res)=>dispatch({type:GET_POST,payload:res.data}))
-// .catch((err)=>console.log(err))
-// }
+
 
 export const getPost=()=>async(dispatch)=>{
   
@@ -60,15 +39,21 @@ export const getPost=()=>async(dispatch)=>{
   }
    
   
-  const post= await axios.get("api/post/posts", config)
+  const post= await axios.get("api/post/")
   
       dispatch({ type: GET_POST_SUCCESS, payload: post });
     } catch (error) {
       dispatch({ type: GET_POST_FAIL, payload: error.response.data });
     }
   };
+//post list to be shown for the visitors
+  export const getPostMap=()=>async(dispatch)=>{
 
-
+    axios.get(`/api/post/map`)
+    .then((res)=>dispatch({type:GET_PUBLIC_POST,payload:res.data}))
+    .catch((err)=>console.log(err))
+    
+    } 
 //post register with user auth
 
 export const postRegister=(newPost)=>async(dispatch)=>{
@@ -169,16 +154,4 @@ export const editPost=(id,editPoster)=>async(dispatch)=>{
 
 
 
-  // export const editPost = (id, editPoster) => (dispatch) => {
-  //   axios
-  //     .put(`/api/post/user/${id}`, editPoster)
-  //     .then(() => dispatch(getPostById()))
-  //     .catch((err) => console.log(err));
-  // };
-  // export const editPost = (id, editPost) => (dispatch) => {
-  //   axios
-  //     .put(`/api/post/user/${id}`, editPost)
-  //     .then((res) => dispatch(editPost()))
-  //     .catch((err) => console.log(err));
-  // };
-    
+ 

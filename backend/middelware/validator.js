@@ -2,11 +2,11 @@ const { check, validationResult } = require("express-validator");
 
 exports.registerRules = () => [
 
-    check("pseudo", "this field is required").notEmpty(),
-    check("email", "this field is required").notEmpty(),
-    check("email", "this field is required").isEmail(),
+    check("pseudo", " (*)pseudo field is required").notEmpty(),
+    check("email", " (*)email field is required").notEmpty(),
+    check("email", "(*)email form must be respected").isEmail(),
   
-    check("password", "this is not a valid password").isLength({ min: 4 })
+    check("password", "please enter  a valid password").isLength({ min: 4 })
 ]
 
 exports.loginRules = () => [

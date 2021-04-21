@@ -1,5 +1,5 @@
-import React,{useState,useEffect} from 'react';
-// import { stringify } from "querystring";
+import React,{useState,useEffect,useMemo} from 'react';
+
 import { Link,Redirect } from 'react-router-dom';
 import {useSelector,useDispatch} from "react-redux";
 import Header from '../partials/Header';
@@ -9,8 +9,9 @@ import {getPostById, postRegister} from "../JS/Action/actionPost";
 
 import NavProfil from './navProfil';
 import {getProfile} from "../JS/Action/actionUser";
-
-
+import successMsg from "./successMsg";
+import ModalPost from "./postErrors";
+import SuccessMsg from './successMsg';
 
 
 // import {logout} from "../JS/Action/actionUser";
@@ -21,7 +22,7 @@ const Profil = () => {
 
 
 
-
+ 
 
 
 
@@ -31,25 +32,27 @@ const id =useSelector((state)=>state.userReducer.users._id)
 const post=useSelector((state)=>state.postReducer.getPostById);
 const users = useSelector((state) => state.userReducer.users);
 const loading = useSelector((state) => state.userReducer.loading);
-const loadingP = useSelector((state) => state.postReducer.loading);
+
 const isAuth=useSelector((state)=>state.userReducer.isAuth);
-const posts=useSelector((state)=>state.postReducer.postByUserId.data);
-console.log(users)
-console.log(isAuth)
-console.log(users._id)
+const postById=useSelector((state)=>state.postReducer.postById)
+const errors=useSelector((state)=>state.postReducer.errors.errors);
+const success=useSelector((state)=>state.postReducer.success);
+
+// console.log(users)
+// console.log(isAuth)
+// console.log(users._id)
 useEffect(() => {
-!users ?  dispatch(getProfile()) :
- dispatch(getPostById(id)) 
+if(users)  
+ dispatch(getProfile(id)) 
 
- 
   
-}, [users._id,isAuth])
+}, [users._id])
+
+useEffect(()=>{
+   dispatch(getPostById())
+},[users._id])
 
 
-
-// useEffect(()=>{
-//   dispatch(getPostById)
-// },[users._id])
 
 
 //post staff 
@@ -60,6 +63,7 @@ const  [description,setDescription]=useState();
 
 const addPost=(e)=>{
   e.preventDefault()
+
   dispatch (
     postRegister({
       country,
@@ -69,12 +73,18 @@ const addPost=(e)=>{
 
         
     })
+   
   )
+  alert("post added successfuly");
+  window.location.href="post";
+ 
 }
 
+// const load=()=>{
 
+// window.location.href="post";
 
-
+// }
 
   return  (
 
@@ -86,15 +96,9 @@ const addPost=(e)=>{
       <NavProfil/>
    
 
-   <h1>
+  
+
       
-   </h1>
-
-      <div>
-
-    
-
-      </div>
       <div class="w-full relative mt-4 shadow-2xl rounded my-24 overflow-hidden">
       
       
@@ -117,13 +121,16 @@ const addPost=(e)=>{
 
       <a href="#form-item"  class="text-sm p-2 bg-indigo-900 text-white text-center rounded font-bold">About me</a>
 
-      <a href="#" class="text-sm p-2 bg-indigo-200 text-center rounded font-semibold hover:bg-indigo-700 hover:text-gray-200">Modify Information</a>
+    
+       <a href="/editprofil" class="text-sm p-2 bg-indigo-200 text-center rounded font-semibold hover:bg-indigo-700 hover:text-gray-200">Modify Information</a>
+      
 
-      <a href="#poste" class="text-sm p-2 bg-indigo-200 text-center rounded font-semibold hover:bg-indigo-700 hover:text-gray-200">Create destination</a>
+      <a href="#poste1" class="text-sm p-2 bg-indigo-200 text-center rounded font-semibold hover:bg-indigo-700 hover:text-gray-200">Create destination</a>
+      <a href="/post" class="text-sm p-2 bg-indigo-200 text-center rounded font-semibold hover:bg-indigo-700 hover:text-gray-200" 
+      
+      onClick={dispatch(getPostById(id))}>Post management</a>
 
-      <a href="#" class="text-sm p-2 bg-indigo-200 text-center rounded font-semibold hover:bg-indigo-700 hover:text-gray-200"
-  
-      >Logout</a>
+      
      
     </div>
 
@@ -139,7 +146,7 @@ const addPost=(e)=>{
 
           <div class="form-item">
             <label class="text-xl ">Full Name</label>
-            <input type="text"  class="w-full appearance-none text-black text-opacity-5 rounded shadow py-1 px-2  mr-2 focus:outline-none focus:shadow-outline focus:border-blue-200 " 
+            <input type="text"  class="w-full appearance-none text-black text-opacity-5 rounded shadow py-1 px-2  mr-2 focus:outline-none focus:shadow-outline focus:border-blue-200 pointer-events-none" 
           value={users.fullName}
             
             />
@@ -150,7 +157,7 @@ const addPost=(e)=>{
 
             <div class="form-item w-full">
               <label class="text-xl ">Username</label>
-              <input type="text"  class="w-full appearance-none text-black text-opacity-5 rounded shadow py-1 px-2 mr-2 focus:outline-none focus:shadow-outline focus:border-blue-200 text-opacity-5 "
+              <input type="text"  class="w-full appearance-none text-black text-opacity-5 rounded shadow py-1 px-2 mr-2 focus:outline-none focus:shadow-outline focus:border-blue-200 text-opacity-5 pointer-events-none"
                value={users.pseudo}
               
               />
@@ -159,7 +166,7 @@ const addPost=(e)=>{
 
             <div class="form-item w-full">
               <label class="text-xl ">Email</label>
-              <input type="text"  class="w-full appearance-none text-black text-opacity-5 rounded shadow py-1 px-2 mr-2 focus:outline-none focus:shadow-outline focus:border-blue-200 text-opacity-5 "
+              <input type="text"  class="w-full appearance-none text-black text-opacity-5 rounded shadow py-1 px-2 mr-2 focus:outline-none focus:shadow-outline focus:border-blue-200 text-opacity-5 pointer-events-none"
               
               value={users.email}
               
@@ -167,7 +174,7 @@ const addPost=(e)=>{
             </div>
             <div class="form-item w-full">
               <label class="text-xl ">Phone</label>
-              <input type="text"  class="w-full appearance-none text-black text-opacity-5 rounded shadow py-1 px-2 mr-2 focus:outline-none focus:shadow-outline focus:border-blue-200 text-opacity-5 "
+              <input type="text"  class="w-full appearance-none text-black text-opacity-5 rounded shadow py-1 px-2 mr-2 focus:outline-none focus:shadow-outline focus:border-blue-200 text-opacity-5 pointer-events-none "
               
               value={users.phone}
               
@@ -183,7 +190,7 @@ const addPost=(e)=>{
 
           <div class="form-item w-full">
             <label class="text-xl ">Biography</label>
-            <textarea cols="30" rows="10" class="w-full appearance-none text-black text-opacity-5 rounded shadow py-1 px-2 mr-2 focus:outline-none focus:shadow-outline focus:border-blue-200 text-opacity-5 "
+            <textarea cols="30" rows="10" class="w-full appearance-none text-black text-opacity-5 rounded shadow py-1 px-2 mr-2 focus:outline-none focus:shadow-outline focus:border-blue-200 text-opacity-5 pointer-events-none resize-none border rounded-md"
               value={users.bio}
             >    </textarea>
           
@@ -196,22 +203,22 @@ const addPost=(e)=>{
 
           <div class="form-item">
             <label class="text-xl ">Instagram</label>
-            <input type="text" value={users.istagram}class="w-full appearance-none text-black text-opacity-5 rounded shadow py-1 px-2 mr-2 focus:outline-none focus:shadow-outline focus:border-blue-200 text-opacity-25 " />
+            <input type="text" value={users.instagram}class="w-full appearance-none text-black text-opacity-5 rounded shadow py-1 px-2 mr-2 focus:outline-none focus:shadow-outline focus:border-blue-200 text-opacity-5 pointer-events-none" />
           </div>
           <div class="form-item">
             <label class="text-xl ">Facebook</label>
-            <input type="text" value={users.facebook} class="w-full appearance-none text-black text-opacity-5 rounded shadow py-1 px-2 mr-2 focus:outline-none focus:shadow-outline focus:border-blue-200 text-opacity-25 " />
+            <input type="text" value={users.facebook} class="w-full appearance-none text-black text-opacity-5 rounded shadow py-1 px-2 mr-2 focus:outline-none focus:shadow-outline focus:border-blue-200 text-opacity-5 pointer-events-none" />
           </div>
           <div class="form-item">
             <label class="text-xl ">Twitter</label>
-            <input type="text" value={users.twitter} class="w-full appearance-none text-black text-opacity-5 rounded shadow py-1 px-2  mr-2 focus:outline-none focus:shadow-outline focus:border-blue-200  " />
+            <input type="text" value={users.twitter} class="w-full appearance-none text-black text-opacity-5 rounded shadow py-1 px-2  mr-2 focus:outline-none focus:shadow-outline focus:border-blue-200 text-opacity-5 pointer-events-none" />
           </div>
          
           <div
       class="bg-white px-6 py-4 my-3 w-3/4 mx-auto shadow rounded-md flex items-center"
     >
     <div class="w-full text-center mx-auto">
-          <Link to ="/editprofil">
+          <Link to="/editprofil">
           <button
         type="button"
         class="border border-indigo-500 bg-indigo-500 text-white rounded-md px-4 py-2 m-2 transition duration-500 ease select-none hover:bg-indigo-600 focus:outline-none focus:shadow-outline"
@@ -221,27 +228,16 @@ const addPost=(e)=>{
        Edit
       </button></Link>
       
-      <button
-        type="button"
-        class="border border-indigo-500 bg-indigo-500 text-white rounded-md px-4 py-2 m-2 transition duration-500 ease select-none hover:bg-indigo-600 focus:outline-none focus:shadow-outline"
-        // onClick={()=>dispatch(EditProfil(users._id))}
-      >
-        
-       Save
-      </button>
+      
       <Link to="/">
+        
       <button
         type="button"
         class="border border-indigo-500 bg-indigo-500 text-white rounded-md px-4 py-2 m-2 transition duration-500 ease select-none hover:bg-indigo-600 focus:outline-none focus:shadow-outline"
         onClick={()=>dispatch(deleteUser(users._id))}
       
       >delete</button></Link>
-       <Link to='/'><button
-        type="button"
-        class="border border-indigo-500 bg-indigo-500 text-white rounded-md px-4 py-2 m-2 transition duration-500 ease select-none hover:bg-indigo-600 focus:outline-none focus:shadow-outline"
-      
-      
-      >logout</button></Link>
+     
       </div></div>
         </form>
       </div>
@@ -251,15 +247,18 @@ const addPost=(e)=>{
   </div>
 </div>
 
-<section id="poste">
+<section id="poste1">
 
 <div class="min-h-screen bg-gray-100 py-6 flex flex-col justify-center sm:py-12">
   <div class="relative py-3 sm:max-w-xl sm:mx-auto">
     <div class="relative px-4 py-10 bg-white mx-8 md:mx-0 shadow rounded-3xl sm:p-10">
+    {errors &&  <ModalPost errors={errors} /> } 
+    {success && <SuccessMsg  success={success}/>}
       <div class="max-w-md mx-auto">
         <div class="flex items-center space-x-5">
           <div class="h-14 w-14 bg-yellow-200 rounded-full flex flex-shrink-0 justify-center items-center text-yellow-500 text-2xl font-mono">i</div>
           <div class="block pl-2 font-semibold text-xl self-start text-gray-700">
+         
             <h2 class="leading-relaxed">Create a destination</h2>
             <p class="text-sm text-gray-500 font-normal leading-relaxed">Form destination</p>
           </div>
@@ -269,7 +268,7 @@ const addPost=(e)=>{
             <div class="flex flex-col">
               <label class="leading-loose">Country</label>
               <input type="text" class="px-4 py-2 border focus:ring-gray-500 focus:border-gray-900 w-full sm:text-sm border-gray-300 rounded-md focus:outline-none text-gray-600" placeholder="Event title"
-              
+              name="country"
               onChange={(e)=>setCountry(e.target.value)}
               />
             </div>
@@ -282,7 +281,7 @@ const addPost=(e)=>{
                 <label class="leading-loose">Start</label>
                 <div class="relative focus-within:text-gray-600 text-gray-400">
                   <input type="text" class="pr-4 pl-10 py-2 border focus:ring-gray-500 focus:border-gray-900 w-full sm:text-sm border-gray-300 rounded-md focus:outline-none text-gray-600" placeholder="25/02/2020"
-                  
+                  name="dateStart"
                   onChange={(e)=>setDateStart(e.target.value)}
 
                   
@@ -296,7 +295,7 @@ const addPost=(e)=>{
                 <label class="leading-loose">End</label>
                 <div class="relative focus-within:text-gray-600 text-gray-400">
                   <input type="text" class="pr-4 pl-10 py-2 border focus:ring-gray-500 focus:border-gray-900 w-full sm:text-sm border-gray-300 rounded-md focus:outline-none text-gray-600" placeholder="26/02/2020"
-                  
+                  name="dateEnd"
                   onChange={(e)=>setDateEnd(e.target.value)}
                   />
                   <div class="absolute left-3 top-2">
@@ -308,7 +307,7 @@ const addPost=(e)=>{
             <div class="flex flex-col">
               <label class="leading-loose">Event Description</label>
               <input type="text" class="px-4 py-2 border focus:ring-gray-500 focus:border-gray-900 w-full sm:text-sm border-gray-300 rounded-md focus:outline-none text-gray-600" placeholder="Optional"
-              
+              name="description"
               onChange={(e)=>setDescription(e.target.value)}
               />
             </div>
@@ -316,29 +315,36 @@ const addPost=(e)=>{
           <div class="pt-4 flex items-center space-x-4">
               <button class="flex justify-center items-center w-full text-gray-900 px-4 py-3 rounded-md focus:outline-none">
                 <svg class="w-6 h-6 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg> Cancel
+               
               </button>
-              {/* { loadingP ?  <Link to ="/post"/> : null } */}
               
-              <button class="bg-blue-500 flex justify-center items-center w-full text-white px-4 py-3 rounded-md focus:outline-none"
-              
+              {success ? 
+              <Link to="/post">
+             <button class="bg-blue-500 flex justify-center items-center w-full text-white px-4 py-3 rounded-md focus:outline-none"
+             
               onClick={addPost}
-
+            
             
 
               >Create
+              
               </button>
-            <Link to="/post"><button >post management</button></Link> 
-            {/* onClick={dispatch(getPostById(id))} */}
+              </Link>:"null"
+              }
+
+             
           </div>
+             
         </div>
       </div>
     </div>
   </div>
 </div>
-{/* <EditProfil/> */}
+
 </section>
 
 <Footer/>
+
     </div>
   )
 }

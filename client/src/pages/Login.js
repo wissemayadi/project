@@ -4,6 +4,7 @@ import { Redirect } from 'react-router';
 import { Link } from 'react-router-dom';
 import { userLogin } from '../JS/Action/actionUser';
 import Menu from './Menu';
+import Load from "./load";
 import './Login.css'
 function Login() {
       const [email, setEmail] = useState();
@@ -34,11 +35,11 @@ function Login() {
             setVisible(visible? false : true);
           };
 
-      if (isAuth) return <Redirect to='/profil' />
+      if (isAuth){ return <Redirect to='/profil' />}
 
-      return loading ?(
-            <h1>Please wait</h1>
-      ):(
+      return(
+           
+      
             <div>
    
     
@@ -66,7 +67,7 @@ function Login() {
                                           <p>   {errors ?  <ul > {errors.msg}</ul> : null}</p>
                                     </div>
 
-                                    <p className="animation a5">Forgot Password</p>
+                                    <Link to="/signup"> <p className="animation a5">register for free</p></Link>
                                     <button className="animation a6" onClick={login} >LOGIN</button>
                               </div>
                         </div>

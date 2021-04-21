@@ -3,9 +3,8 @@ import { Card, Button, Form } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { editPost,getPostById} from "../JS/Action/actionPost";
+import { getProfile } from '../JS/Action/actionUser';
 
-
-// import "bootstrap/dist/css/bootstrap.min.css";
 
 
 const EditPost = ()=> {
@@ -26,14 +25,15 @@ const postByUserId=useSelector((state)=>state.postReducer.postByUserId);
   console.log(postById)
  
   useEffect(() => {
-    
+   
     setEditPoster(postById);
   }, [postById]);
 
+ 
 
-
-
-
+ 
+ 
+ 
 
 
   const handleChange = e => {
@@ -44,143 +44,93 @@ const postByUserId=useSelector((state)=>state.postReducer.postByUserId);
 
 
   return (
-<div style={{ display: "flex", justifyContent: "center" }}>
+<div >
   
 { editPoster ? 
 <div>
-      <Card
-        style={{
-          width: "22rem",
-          height: "25rem",
-          marginRight: "30px",
-          marginBottom: "20px",
-          marginTop: "30px",
-          backgroundColor: "white",
-          borderRadius: "8px",
-          border: "transparent",
-          boxShadow: "0 10px 10px 0 rgba(0,0,0,0.2)",
-        }}
-       
-      >
-    
-      {users.fullName}
-      
-        <Card.Header
-          style={{
-            borderTopRightRadius: "8px",
-            borderTopLeftRadius: "8px",
-            backgroundColor: "#277fa5",
-            color: "white",
-          }}
-        >
-          Edit Post
-        </Card.Header>
-
-        <Card.Body>
-          <Card.Text>
-{/* {postByUserId.map((post,index)=>post._id==id ? <li>{post}</li>: null)} */}
-            <form>
-              <Form.Group
-                controlId="fullName"
-                style={{ textAlign: "left" }}
-              >
-                <Form.Label>country:</Form.Label>
-                <Form.Control
-                  type="text"
-                  name="country"
-                  placeholder="Enter your fullname"
-                  value={editPoster.country}
-                  onChange={handleChange}
-                />
-              </Form.Group>
-
-              <Form.Group
-                controlId="formBasicEmail"
-                style={{ textAlign: "left" }}
-              >
-                <Form.Label>date start</Form.Label>
-                <Form.Control
-                  type="text"
-                  name="dateStart"
+<div class="mx-auto max-w-6xl p-12">
+   <div class="flex flex-col md:flex-row justify-center">
+      <div class="md:w-1/2 max-w-md flex flex-col justify-center">
+         <div class="md:text-4xl text-xl font-black uppercase">Page edit post</div>
+         <div class="text-xl mt-4">Here you can update your post</div>
+         <a href="https://icon-library.net/icon/edit-profile-icon-1.html" title="Edit Profile Icon #359395"><img src="https://icon-library.net//images/edit-profile-icon/edit-profile-icon-1.jpg" width="150" /></a>
+         <Link to="/post"> <span class="text-sm">or <a href="#" class="text-blue-700"> 
+         back to post page
+      </a>
+   </span></Link>
+      </div>
+      <div class="md:w-1/2 flex justify-start mt-5 md:justify-end w-full md:w-1/2 ">
+         <div class="shadow-md flex-auto max-w-sm p-10 pb-20">
+            <div class="w-full">
+               <div class="font-bold h-6 mt-3 text-gray-600 text-xs leading-8 uppercase"><span class="text-red-400 mr-1">*</span> Country</div>
+               <div class="my-2 bg-white p-1 flex border border-gray-200 rounded">  <input placeholder="set your country" class="p-1 px-2 appearance-none outline-none w-full text-gray-800"
+               type="text"
+               name="country"
+               Value={editPoster.country}
+               onChange={handleChange}
+               
+               />  </div>
+            </div>
+            <div class="w-full">
+               <div class="font-bold h-6 mt-3 text-gray-600 text-xs leading-8 uppercase"><span class="text-red-400 mr-1">*</span> Date Start</div>
+               <div class="my-2 bg-white p-1 flex border border-gray-200 rounded">  <input placeholder="set your date" class="p-1 px-2 appearance-none outline-none w-full text-gray-800"
+                type="text"
+                name="dateStart"
+                Value={editPoster.dateStart}
+                onChange={handleChange}
+               
+               />  </div>
+            </div>
+            <div class="w-full">
+               <div class="font-bold h-6 mt-3 text-gray-600 text-xs leading-8 uppercase"><span class="text-red-400 mr-1">*</span> Date End</div>
+               <div class="my-2 bg-white p-1 flex border border-gray-200 rounded">  <input placeholder="set your date" class="p-1 px-2 appearance-none outline-none w-full text-gray-800"
+               type="text"
+               name="dateEnd"
+               Value={editPoster.dateEnd}
+               onChange={handleChange}
+               
+               />  </div>
+            </div>
+            <div class="w-full">
+               <div class="font-bold h-6 mt-3 text-gray-600 text-xs leading-8 uppercase"><span class="text-red-400 mr-1">*</span> Description</div>
+               <div class="my-2 bg-white p-1 flex border border-gray-200 rounded">  <input placeholder="set your description" class="p-1 px-2 appearance-none outline-none w-full text-gray-800"
+               type="text"
+               name="description"
+               Value={editPoster.description}
+               onChange={handleChange}
+               
+               
+               />  </div>
+            </div>
+            <div class="mt-6 relative">
+              
+              <Link to="/post">
+               <div class="shadow-md font-medium py-2 px-4 text-green-100
+                  cursor-pointer bg-teal-600 rounded text-lg tr-mt  absolute text-center w-full"
+                  onClick={() => dispatch(editPost(editPoster._id, editPoster))}
                   
-                  placeholder="dateStart"
-                  value={editPoster.dateStart}
-                  onChange={handleChange}
-                />
-              </Form.Group>
-
-              <Form.Group
-                controlId="formBasicEmail"
-                style={{ textAlign: "left" }}
-              >
-                <Form.Label>dateEnd</Form.Label>
-                <Form.Control
-                  type="text"
-                  name="dateEnd"
-                  
-                  placeholder="Enter your phone"
-                  value={editPoster.dateEnd}
-                  onChange={handleChange}
-                />
-              </Form.Group>
-
-              <Form.Group
-                controlId="formBasicEmail"
-                style={{ textAlign: "left" }}
-              >
-                <Form.Label>description</Form.Label>
-                <Form.Control
-                  type="text"
-                  name="description"
-                  
-                  placeholder="Enter your description"
-                  value={editPoster.description}
-                  onChange={handleChange}
-                />
-                </Form.Group>
-                  <Form.Group
-                controlId="formBasicEmail"
-                style={{ textAlign: "left" }}
-              >
-                  <Form.Label>autre</Form.Label>
-                <Form.Control
-                  type="text"
-                  name="autre"
-                  
-                  placeholder="Enter your facebook"
-                  // Value={editPost.facebook}
-                  // onChange={handleChange}
-                />
-              </Form.Group>
-
-              {/* <label for="country">country</label>
-                <input type="text" name="country" value={editPoster.country} onChange={handleChange}/> */}
-            </form>
-          </Card.Text>
-        </Card.Body>
-        <div className="buttons">
-            <Link to="/profil">  
-            <Button
-              variant="outline-primary edit-button"
-              onClick={() => dispatch(editPost(editPoster._id, editPoster))}
-             
-            >
-              Save
-            </Button>
-            </Link>  
-       {/*    <Link to="/">
-            <Button variant="outline-danger edit-button">Cancel</Button>
-          </Link> */}
-        </div>
-      </Card>
-  < Link to ="/profil"><button>back to post</button></Link>
+                  >Submit</div>
+                  </Link>
+            </div> 
+            
+         </div>
+      </div>
+   </div>
+</div>
+  
       <div>
 </div>
-      </div> : "..."  
+      </div> : "post does not exist"  
 }
 </div>
   )
 }
 
 export default  EditPost;
+
+
+
+
+
+
 

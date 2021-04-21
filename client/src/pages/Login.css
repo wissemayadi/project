@@ -111,8 +111,10 @@ body {
       animation-delay: 2.3s;
 }
 
-.a5 {
+.a5:hover {
       animation-delay: 2.4s;
+      color:rgb(35, 35, 132);
+      
 }
 
 .a6 {
