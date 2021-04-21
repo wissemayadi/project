@@ -75,8 +75,8 @@ const addPost=(e)=>{
     })
    
   )
-  alert("post added successfuly");
-  window.location.href="post";
+  
+  // window.location.href="post";
  
 }
 
@@ -318,7 +318,7 @@ const addPost=(e)=>{
                
               </button>
               
-              {success ? 
+              {!errors ? 
               <Link to="/post">
              <button class="bg-blue-500 flex justify-center items-center w-full text-white px-4 py-3 rounded-md focus:outline-none"
              

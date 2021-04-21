@@ -1,7 +1,7 @@
 import React,{useState,useEffect} from 'react';
 import {useDispatch,useSelector} from "react-redux";
-import {userRegister} from '../JS/Action/actionUser';
-import { Link, Redirect } from 'react-router-dom';
+import {userRegister,getProfile} from '../JS/Action/actionUser';
+import { Link, Redirect ,useHistory} from 'react-router-dom';
 import ErrModal from "./erreurModal";
 
 
@@ -11,15 +11,15 @@ function SignUp() {
 const [pseudo,setPseudo] = useState();
 const [email,setEmail]=useState();
 const [password,setPassword]= useState();
+  
 
 
 
 const errors = useSelector((state)=>  state.userReducer.errors.errors);
-
+const users=useSelector((state)=>state.userReducer.users)
 const isAuth = useSelector((state)=>state.userReducer.isAuth);
 const loading = useSelector((state)=>state.userReducer.loading);
 console.log(errors)
-
 
 const dispatch =useDispatch();
 const addUser=(e)=>{
@@ -33,15 +33,15 @@ const addUser=(e)=>{
     }
     )
   )
-alert("user added successfuly");
   setPseudo("");
-setEmail("");
-setPassword("");
+  setEmail("");
+  setPassword("");
+
 }
- 
+
 
  
-if(loading) return <Redirect to='/login'/>
+if(!users) return <Redirect to='/login'/>
 
   return (
 

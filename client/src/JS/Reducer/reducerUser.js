@@ -51,7 +51,7 @@ const reducerUser = (state = initialState, { type, payload }) => {
 
                   return {
                         ...state,
-                        loading: true
+                        loading: true,
                   };
 
             case USER_REGISTER_SUCCESS:
