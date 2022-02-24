@@ -3,7 +3,7 @@ import userReducer from "./reducerUser";
 import postReducer from "./reducerPost";
 
 const rootReducer = combineReducers({
-  userReducer,postReducer,
+  userReducer,postReducer, 
 });
 
 export default rootReducer;
