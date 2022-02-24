@@ -18,7 +18,7 @@ function Testimonials() {
             <circle cx="1630" cy="128" r="128" />
             <circle cx="178" cy="481" r="40" />
           </g>
-        </svg>
+        </svg> 
       </div>
 
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
