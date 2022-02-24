@@ -22,7 +22,7 @@ function Dropdown({
         href="#0"
         aria-haspopup="true"
         aria-expanded={dropdownOpen}
-        onClick={(e) => e.preventDefault()}
+        onClick={(e) => e.preventDefault()} 
       >
         {title}
         <svg className="w-3 h-3 fill-current text-gray-500 cursor-pointer ml-1 flex-shrink-0" viewBox="0 0 12 12" xmlns="http://www.w3.org/2000/svg">
