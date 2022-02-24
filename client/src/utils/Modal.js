@@ -16,7 +16,7 @@ function Modal({
   useEffect(() => {
     const clickHandler = ({ target }) => {
       if (!show || modalContent.current.contains(target)) return;
-      handleClose();
+      handleClose(); 
     };
     document.addEventListener('click', clickHandler);
     return () => document.removeEventListener('click', clickHandler);
