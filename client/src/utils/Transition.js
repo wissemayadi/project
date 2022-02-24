@@ -39,7 +39,7 @@ function CSSTransition({
     classes.length && node.classList.add(...classes);
   }
 
-  function removeClasses(node, classes) {
+  function removeClasses(node, classes) { 
     classes.length && node.classList.remove(...classes);
   }
 
