@@ -14,7 +14,7 @@ export default function MenuPage() {
             <SubMenu label="Open">
                 <MenuItem>index.html</MenuItem>
                 <MenuItem>example.js</MenuItem>
-                <MenuItem>about.css</MenuItem>
+                <MenuItem>about.css</MenuItem> 
             </SubMenu>
             <MenuItem>Save</MenuItem>
         </Menu>
