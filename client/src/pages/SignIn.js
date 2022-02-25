@@ -6,7 +6,7 @@ import Header from '../partials/Header';
 const  SignIn=()=> {
 
 const [email,setEmail]=useState();
-const [password,setPassword]=useState();
+const [password,setPassword]=useState(); 
 
 const emailError=document.querySelector(".email.error");
 const passwordError=document.querySelector(".password.error");
