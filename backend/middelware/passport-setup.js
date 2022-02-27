@@ -9,7 +9,7 @@ const secretOrKey = process.env.secretOrKey;
 
 console.log(secretOrKey)
 
-const opts = {
+const opts = { 
     jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
     secretOrKey 
 
