@@ -57,7 +57,7 @@ try {
     const payload ={
 
       pseudo: user.pseudo,
-      //change email.user to user.email
+     
         email:user.email,
         id: user._id
     }
